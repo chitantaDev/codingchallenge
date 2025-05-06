@@ -1,10 +1,11 @@
 package de.chitanta.codingchallenge;
 
 public enum VehicleType {
-    LKW("LKW", 2.0),
-    AUTO("Auto", 1.6),
-    MOTORRAD("Motorrad", 1.3),
-    SCOOTER("Scooter", 1.0);
+    LKW("LKW", 400.0),
+    AUTO("Auto", 250.0),
+    MOTORRAD("Motorrad", 180.0),
+    SCOOTER("Scooter", 120.0);
+
 
     private final String vehicleType;
     private final double factor;

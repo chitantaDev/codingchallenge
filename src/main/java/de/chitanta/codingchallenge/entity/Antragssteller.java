@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
+@Getter //for some reason Lombok doesn't work on this project 🤷🏾‍♂️ so enjoy some boilerplate code
 @Setter
 @Entity
 @Table(name = "antragssteller")

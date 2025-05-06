@@ -11,6 +11,41 @@ import java.util.*;
 
 @Service
 public class CsvService {
+
+    public static final int CSV_PLZ_INDEX = 6;
+    public static final int CSV_REGION_1_INDEX = 2;
+
+    /**
+     * Retrieves the region from the parsed csv file path, based upon the plz parameter
+     * @param path
+     * @param plz
+     * @return
+     */
+    public String getRegion1ByPostleitzahl(String path, String plz) {
+        try (CSVReader csvReader = new CSVReader(new FileReader(path))) {
+            String[] values;
+            csvReader.readNext(); // skip header
+
+            while ((values = csvReader.readNext()) != null) {
+                String postleitzahl = values[CSV_PLZ_INDEX];
+
+                if (postleitzahl.equals(plz)) {
+                    return values[CSV_REGION_1_INDEX];
+                }
+            }
+
+            return null;
+
+        } catch (IOException | CsvValidationException e) {
+            throw new RuntimeException("RuntimeException thrown: " + e.getMessage());
+        }
+    }
+
+    /**
+     * OpenCsv doc standard implementation
+     * @param path
+     * @return
+     */
     public List<List<String>> parseCsvFileIntoList(String path){
         List<List<String>> records = new ArrayList<>();
         try (CSVReader csvReader = new CSVReader(new FileReader(path));) {
@@ -26,27 +61,15 @@ public class CsvService {
         }
     }
 
-    public String getRegion1ByPostleitzahl(String path, String plz) {
-        try (CSVReader csvReader = new CSVReader(new FileReader(path))) {
-            String[] values;
-            csvReader.readNext(); // skip header
-
-            while ((values = csvReader.readNext()) != null) {
-                String postleitzahl = values[6];
-
-                if (postleitzahl.equals(plz)) {
-                    return values[2];
-                }
-            }
-
-            return null;
-
-        } catch (IOException | CsvValidationException e) {
-            throw new RuntimeException("RuntimeException thrown: " + e.getMessage());
-        }
-    }
-
-    // Benchmarktests: reading directly from csv faster by 300ms. Leaving this method for future use
+    // Unused method
+    // Benchmarktests: reading directly from csv faster by aprox. 300ms.
+    // Leaving this method for future use. No usage for it at this time
+    /**
+     * Iterates through all CSV file entries and maps them to a hashset.
+     * time complexity O(1).
+     * @param path
+     * @return
+     */
     public HashSet<RegionalData> createHashSetFromPostcodesCSVFile(String path){
         HashSet<RegionalData> regionalDataHashSet = new HashSet<>();
 

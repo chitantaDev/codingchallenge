@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Getter
-@Setter
+@Setter //for some reason Lombok doesn't work on this project 🤷🏾‍♂️ so enjoy some boilerplate code
 @Entity
 @Table(name = "nutzereingabe")
 public class Nutzereingabe {

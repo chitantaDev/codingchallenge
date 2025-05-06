@@ -1,3 +1,4 @@
+/*
 package de.chitanta.codingchallenge.config;
 
 import org.springframework.context.annotation.Bean;
@@ -27,3 +28,5 @@ public class CorsConfig {
         return source;
     }
 }
+*/
+//FIXME: active this code once frontend runs on a server to omit cross origin errors

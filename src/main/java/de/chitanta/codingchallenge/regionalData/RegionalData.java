@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Setter
-@Getter
+@Getter //for some reason Lombok doesn't work on this project 🤷🏾‍♂️ so enjoy some boilerplate code
+/**
+ * Maps object according to postcodes.csv header
+ */
 public class RegionalData {
     private String ISO_ALPHA;
     private String ISO_REGION_CODE;

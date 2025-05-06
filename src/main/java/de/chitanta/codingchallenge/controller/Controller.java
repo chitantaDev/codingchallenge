@@ -8,6 +8,7 @@ import de.chitanta.codingchallenge.repository.AntragsstellerRepository;
 import de.chitanta.codingchallenge.repository.NutzereingabeRepository;
 import de.chitanta.codingchallenge.repository.VersicherungspraemieRepository;
 import de.chitanta.codingchallenge.service.PremiumEvaluatorService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,8 @@ public class Controller {
     private final NutzereingabeRepository nutzereingabeRepository;
     private final VersicherungspraemieRepository versicherungspraemieRepository;
 
-    public Controller(PremiumEvaluatorService premiumEvaluatorService, AntragsstellerRepository antragsstellerRepository, NutzereingabeRepository nutzereingabeRepository, VersicherungspraemieRepository versicherungspraemieRepository) {
+    public Controller(PremiumEvaluatorService premiumEvaluatorService, AntragsstellerRepository antragsstellerRepository,
+                      NutzereingabeRepository nutzereingabeRepository, VersicherungspraemieRepository versicherungspraemieRepository) {
         this.premiumEvaluatorService = premiumEvaluatorService;
         this.antragsstellerRepository = antragsstellerRepository;
         this.nutzereingabeRepository = nutzereingabeRepository;
@@ -32,6 +34,13 @@ public class Controller {
     }
 
     //TODO seperation of concerns: get the steps into a service instead of having logic in a controller
+
+    /**
+     * Receives user input from frontend inside the RequestBody.
+     * Creates new user if user doesn't exist. Persists user, user input aswell as the calculations and returns the results
+     * @param dto
+     * @return
+     */
     @PostMapping("/save/nutzereingabe")
     public ResponseEntity<Double> saveUserPremiumDetails(@RequestBody NutzereingabeDto dto) {
         // 1 - Check if Antragssteller exists -> if not, create one
@@ -70,8 +79,8 @@ public class Controller {
         versicherungspraemie.setPraemie(praemie);
         versicherungspraemieRepository.save(versicherungspraemie);
 
-        return ResponseEntity.ok(praemie);
+        System.out.println("RESPONSE: " + praemie);
+        // sends praemie back to the frontend inside response body as raw data
+        return new ResponseEntity<>(praemie, HttpStatus.OK);
     }
-
-
 }
