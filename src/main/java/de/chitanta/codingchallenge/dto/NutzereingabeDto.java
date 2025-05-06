@@ -14,6 +14,10 @@ public class NutzereingabeDto {
     private String fahrzeugtyp;
     private Double kilometerleistung;
 
+    public NutzereingabeDto() {
+
+    }
+
     public String getFirstname() {
         return firstname;
     }

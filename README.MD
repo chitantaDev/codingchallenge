@@ -1,7 +1,19 @@
 # Project Overview
 
-This coding challenge is a full-stack application built with **Java Spring Boot** (backend) and **vanilla HTML/CSS/JavaScript** (frontend). The application allows users to submit personal data through a form, calculates a custom insurance premium based on the input, and displays the result along with the submitted information. The project demonstrates integration between a RESTful backend and a lightweight frontend, as well as interaction with a **PostgreSQL** database.
+This coding challenge is a full-stack application built with **Java Spring Boot** (backend) and **vanilla HTML/CSS/JavaScript** (frontend). 
+The application allows users to submit personal data through a form, calculates a custom insurance premium based on the input, and displays the 
+result along with the submitted information. The project demonstrates integration between a RESTful backend and a lightweight frontend, as well 
+as interaction with a **PostgreSQL** database.
 
+## TechStack:
+- Java 17 & Spring Boot 3.4.5 with:
+  - Spring Web: REST API & Apache Tomact
+  - Spring Data JPA: Hibernate
+  - PostgreSQL Driver: JDBC and R2DBC Driver that connects PostgreSQL database
+  - Lombok to reduce boilerplate code
+  - OpenCSV to handle utilize CSV-files
+  - JUnit5
+- HTML & CSS with JavaScript
 
 # Coding Challenge Frontend SETUP
 
@@ -28,6 +40,10 @@ Lombok might work on your machine
 2. User enters data
 3. User submits data by pressing the button
 4. User finds his premium underneath the form together with the submitted data 
+
+What happens on the backend? After persisting data, a factor is calculated following this equation:
+
+    Region-Factor * VehicleType-Factor * Mileage(in km);
 
 ## API Overview
 
@@ -58,6 +74,8 @@ Example Response Body
 ## UI 
 
 ![Frontend_UI](assets/ui_website_screenshot.png "Frontend View")
+
+##
 
 ## Future Quality Improvements
 Certain quality standards have not been introduced into this challenge due to the scope of this coding challenge like:

@@ -21,7 +21,7 @@ public class CsvService {
      * @param plz
      * @return
      */
-    public String getRegion1ByPostleitzahl(String path, String plz) {
+    public String getRegion1ByPostleitzahlFromCsvFile(String path, String plz) {
         try (CSVReader csvReader = new CSVReader(new FileReader(path))) {
             String[] values;
             csvReader.readNext(); // skip header
@@ -41,6 +41,7 @@ public class CsvService {
         }
     }
 
+    // Unused methods from here on forwards
     /**
      * OpenCsv doc standard implementation
      * @param path
@@ -61,7 +62,6 @@ public class CsvService {
         }
     }
 
-    // Unused method
     // Benchmarktests: reading directly from csv faster by aprox. 300ms.
     // Leaving this method for future use. No usage for it at this time
     /**

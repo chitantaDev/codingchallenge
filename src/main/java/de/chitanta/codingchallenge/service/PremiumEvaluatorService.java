@@ -27,9 +27,8 @@ public class PremiumEvaluatorService {
     }
 
     public double getRegionFactor(String plz) {
-        String region1 = extractRegionOneFromCsv(plz);
 
-        return getRegionFactorByRegion(region1);
+        return getRegionFactorByRegion(extractRegionOneFromCsv(plz));
     }
 
     /**
@@ -38,7 +37,7 @@ public class PremiumEvaluatorService {
      * @return
      */
     public String extractRegionOneFromCsv(String plz) {
-        String region1ByPostleitzahl = csvService.getRegion1ByPostleitzahl(CSV_FILE_PATH, plz);
+        String region1ByPostleitzahl = csvService.getRegion1ByPostleitzahlFromCsvFile(CSV_FILE_PATH, plz);
         System.out.println("Region: " + region1ByPostleitzahl);
 
         return region1ByPostleitzahl;
@@ -70,30 +69,30 @@ public class PremiumEvaluatorService {
                 return entry.getFactor();
             }
         }
-        throw new IllegalArgumentException("Bundesland existiert nicht");
+        throw new IllegalArgumentException("Fahrzeugtyp existiert nicht");
     }
 
-    private double getKmhFactor(double kmh) {
-        double kmhFactor;
+    private double getKmFactor(double km) {
+        double kmFactor;
 
-        if (kmh <= 5000) {
-            kmhFactor = 0.5;
-        } else if (kmh > 5000 && kmh <= 10000) {
-            kmhFactor = 1.0;
-        } else if (kmh > 10000 && kmh <= 20000) {
-            kmhFactor = 1.5;
+        if (km <= 5000) {
+            kmFactor = 0.5;
+        } else if (km > 5000 && km <= 10000) {
+            kmFactor = 1.0;
+        } else if (km > 10000 && km <= 20000) {
+            kmFactor = 1.5;
         } else {
-            kmhFactor = 2.0;
+            kmFactor = 2.0;
         }
 
-        System.out.println("Kmh factor: " + kmhFactor);
+        System.out.println("Km factor: " + kmFactor);
 
-        return kmhFactor;
+        return kmFactor;
     }
 
     //TODO: truncate to 2 decimals
-    public double calculatePremium(String plz, String vehicleType, double kmh) {
-        return getRegionFactor(plz) * getVehicleFactorByVehicleType(vehicleType) * getKmhFactor(kmh);
+    public double calculatePremium(String plz, String vehicleType, double km) {
+        return getRegionFactor(plz) * getVehicleFactorByVehicleType(vehicleType) * getKmFactor(km);
     }
 
     // Unused method: Less efficient + overkill. Reading directly from the CSV file overall is faster.
